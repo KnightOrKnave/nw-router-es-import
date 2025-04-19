@@ -1,0 +1,22 @@
+[
+  {
+    "grok": {
+      "field": "message",
+      "patterns": [
+        "%{TIMESTAMP_ISO8601:time} %{NOTSPACE:syslog_host}  \\[INSPECT\\] %{NOTSPACE:interface}\\[%{NOTSPACE:direction}\\]\\[%{NOTSPACE:port}\\] %{NOTSPACE:proto} %{IPV6:srcip}.%{NOTSPACE:srcport} > %{IPV6:dstip}.%{NOTSPACE:dstport}",
+        "%{TIMESTAMP_ISO8601:time} %{NOTSPACE:interface_name} %{NOTSPACE:pass_reject} at %{NOTSPACE:direction}\\(%{NOTSPACE:filter_number}\\) filter: %{NOTSPACE:protocol} %{IP:src_addr}[:\\.]*%{NOTSPACE:src_port}* > %{IP:dest_addr}[:\\.]*%{NOTSPACE:dest_port}*( : )*%{RTX_MSG:comment}",
+        "%{TIMESTAMP_ISO8601:time} %{GREEDYDATA:backoff}"
+      ],
+      "pattern_definitions": {
+        "RTX_MSG": "[a-zA-Z0-9 ]+",
+        "DATE_JP": "%{YEAR}[/-]%{MONTHNUM}[/-]%{MONTHDAY}",
+        "ZONE": "[a-zA-Z0-9/. _-]+",
+        "RTXIF": "%{NOTSPACE}(()*\\[[0-9][0-9]\\{0-2\\}\\])*",
+        "RTX_USERNAME": "[a-zA-Z0-9_-]+",
+        "TIMESTAMP_JP": "%{DATE_JP}[ ,]%{TIME}",
+        "RTX_CMD": "[a-zA-Z0-9 -_\\.]+"
+      },
+      "ignore_missing": true
+    }
+  }
+]
