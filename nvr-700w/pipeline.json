@@ -3,8 +3,8 @@
     "grok": {
       "field": "message",
       "patterns": [
-        "%{TIMESTAMP_ISO8601:time} %{NOTSPACE:syslog_host}  \\[INSPECT\\] %{NOTSPACE:interface}\\[%{NOTSPACE:direction}\\]\\[%{NOTSPACE:port}\\] %{NOTSPACE:proto} %{IPV6:srcip}.%{NOTSPACE:srcport} > %{IPV6:dstip}.%{NOTSPACE:dstport}",
-        "%{TIMESTAMP_ISO8601:time} %{NOTSPACE:interface_name} %{NOTSPACE:pass_reject} at %{NOTSPACE:direction}\\(%{NOTSPACE:filter_number}\\) filter: %{NOTSPACE:protocol} %{IP:src_addr}[:\\.]*%{NOTSPACE:src_port}* > %{IP:dest_addr}[:\\.]*%{NOTSPACE:dest_port}*( : )*%{RTX_MSG:comment}",
+        "%{TIMESTAMP_ISO8601:time} %{NOTSPACE:syslog_host}  \\[INSPECT\\] %{NOTSPACE:event.interface_name}\\[%{NOTSPACE:event.direction}\\]\\[%{NOTSPACE:event.filter_number}\\] %{NOTSPACE:protocol} %{IPV6:source.ip}.%{NOTSPACE:source.port} > %{IPV6:destination.ip}.%{NOTSPACE:destination.port}",
+        "%{TIMESTAMP_ISO8601:time} %{NOTSPACE:interface_name} %{NOTSPACE:pass_reject} at %{NOTSPACE:event.direction}\\(%{NOTSPACE:event.filter_number}\\) filter: %{NOTSPACE:event.protocol} %{IP:source.ip}[:\\.]*%{NOTSPACE:source.port}* > %{IP:destination.ip}[:\\.]*%{NOTSPACE:destination.port}*( : )*%{RTX_MSG:event.comment}",
         "%{TIMESTAMP_ISO8601:time} %{GREEDYDATA:backoff}"
       ],
       "pattern_definitions": {
