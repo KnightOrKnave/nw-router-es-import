@@ -1,0 +1,26 @@
+[
+  {
+    "grok": {
+      "field": "message",
+      "patterns": [
+        "%{TIMESTAMP_ISO8601:time} %{NOTSPACE:syslog_host} %{GREEDYDATA:syslogbody}"
+      ]
+    }
+  },
+  {
+    "grok": {
+      "field": "syslogbody",
+      "patterns": [
+        "%{NOTSPACE:module}: %{NOTSPACE:action} %{GREEDYDATA:kvdata}"
+      ]
+    }
+  },
+  {
+    "kv": {
+      "field": "kvdata",
+      "field_split": " ",
+      "value_split": "=",
+      "ignore_failure": true
+    }
+  }
+]
